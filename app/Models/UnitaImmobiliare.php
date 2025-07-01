@@ -51,17 +51,23 @@ class UnitaImmobiliare extends Model
     }
 
     /**
+     * Relazione con Proprietà
+     */
+    public function proprieta()
+    {
+        return $this->hasMany(\App\Models\Proprieta::class, 'unita_immobiliare_id', 'id_unita');
+    }
+
+    /**
      * Accessor per identificazione completa dell'unità
      */
     public function getIdentificazioneCompiletaAttribute()
     {
         $parts = [];
-        
         if ($this->fabbricato) $parts[] = 'Fabb. ' . $this->fabbricato;
         if ($this->scala) $parts[] = 'Scala ' . $this->scala;
         if ($this->piano) $parts[] = 'Piano ' . $this->piano;
         if ($this->interno) $parts[] = 'Int. ' . $this->interno;
-        
         return implode(', ', $parts) ?: 'N/A';
     }
 

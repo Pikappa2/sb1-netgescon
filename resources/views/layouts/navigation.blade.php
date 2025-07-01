@@ -152,7 +152,7 @@
                         <x-nav-link :href="route('condomino.scadenze')" :active="request()->routeIs('condomino.scadenze')">
                             {{ __('Scadenze') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('condomino.documenti')" :active="request()->routeIs('condomino.documenti')">
+                        <x-nav-link :href="route('condomino.documenti.index')" :active="request()->routeIs('condomino.documenti')">
                             {{ __('Documenti') }}
                         </x-nav-link>
                         <x-nav-link :href="route('condomino.guasti')" :active="request()->routeIs('condomino.guasti')">
@@ -260,7 +260,7 @@
                 <x-responsive-nav-link :href="route('condomino.scadenze')" :active="request()->routeIs('condomino.scadenze')">
                     {{ __('Scadenze') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('condomino.documenti')" :active="request()->routeIs('condomino.documenti')">
+                <x-responsive-nav-link :href="route('condomino.documenti.index')" :active="request()->routeIs('condomino.documenti')">
                     {{ __('Documenti') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('condomino.guasti')" :active="request()->routeIs('condomino.guasti')">

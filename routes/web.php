@@ -140,7 +140,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         
         // Documenti
         Route::get('/documenti', [CondominoDocumentoController::class, 'index'])->name('documenti.index');
+<<<<<<< HEAD
         Route::get('/documenti/{documento}/download', [CondominoDocumentoController::class, 'download'])->name('documenti.download');
+=======
+>>>>>>> e913d05 (Primo commit dal server Linux: progetto funzionante e aggiornato)
         
         // Unità Immobiliari
         Route::get('/unita', [CondominoUnitaController::class, 'index'])->name('unita.index');
@@ -178,4 +181,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::get('impersonate/leave', [\Lab404\Impersonate\Controllers\ImpersonateController::class, 'leave'])->name('impersonate.leave');
 
 // --- AUTHENTICATION ROUTES ---
+<<<<<<< HEAD
 require __DIR__.'/auth.php';
+=======
+require __DIR__.'/auth.php';
+
+Route::middleware(['auth'])->group(function () {
+    Route::view('/contabilita/registrazione-test', 'contabilita.registrazione-test')
+        ->name('contabilita.registrazione-test');
+});
+Route::get('/contabilita/registrazione-test', \App\Livewire\Contabilita\RegistrazioneTest::class)
+    ->middleware(['auth'])
+    ->name('contabilita.registrazione-test');
+>>>>>>> e913d05 (Primo commit dal server Linux: progetto funzionante e aggiornato)
