@@ -1,0 +1,30 @@
+{
+    "name": "condominio-management",
+    "version": "1.0.0",
+    "description": "Sistema di gestione condominiale completo",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite",
+        "preview": "vite preview",
+        "deploy": "npm run build && php artisan optimize",
+        "fresh": "php artisan migrate:fresh --seed",
+        "setup": "composer install && npm install && cp .env.example .env && php artisan key:generate"
+    },
+    "devDependencies": {
+        "@tailwindcss/forms": "^0.5.7",
+        "alpinejs": "^3.13.3",
+        "autoprefixer": "^10.4.16",
+        "axios": "^1.6.2",
+        "laravel-vite-plugin": "^1.0.0",
+        "postcss": "^8.4.32",
+        "tailwindcss": "^3.3.6",
+        "vite": "^5.0.10"
+    },
+    "dependencies": {
+        "chart.js": "^4.4.0",
+        "flatpickr": "^4.6.13",
+        "sortablejs": "^1.15.0"
+    }
+}
