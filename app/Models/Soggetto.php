@@ -12,7 +12,6 @@ class Soggetto extends Model
     use HasFactory;
 
     protected $table = 'soggetti';
-    protected $primaryKey = 'id_soggetto';
 
     /**
      * The attributes that are mass assignable.
@@ -41,16 +40,15 @@ class Soggetto extends Model
      
     public function ticketsRichiesti(): HasMany
     {
-        return $this->hasMany(Ticket::class, 'soggetto_richiedente_id', 'id_soggetto');
+        return $this->hasMany(Ticket::class, 'soggetto_richiedente_id', 'id');
     }
 
     public function rateEmessaResponsabile(): HasMany
     {
-        return $this->hasMany(RataEmessa::class, 'id_soggetto_responsabile', 'id_soggetto');
+        return $this->hasMany(RataEmessa::class, 'id_soggetto_responsabile', 'id');
     }
-    // In Soggetto.php
+
     public function proprieta() {
         return $this->hasMany(Proprieta::class);
     }
-
 }

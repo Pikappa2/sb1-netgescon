@@ -1,33 +1,20 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Questa migration è stata svuotata perché la tabella 'preventivi' viene gestita da una migration successiva più completa.
+     * Non eseguire alcuna operazione qui per evitare errori di tabella già esistente.
      */
     public function up(): void
     {
-        Schema::create('preventivi', function (Blueprint $table) {
-            $table->bigIncrements('id_preventivo');
-            $table->unsignedBigInteger('id_gestione');
-            $table->string('descrizione');
-            $table->date('data_approvazione')->nullable();
-            $table->string('stato', 50)->default('BOZZA');
-            $table->text('note')->nullable();
-            $table->foreign('id_gestione')->references('id_gestione')->on('gestioni')->onDelete('cascade');
-            $table->timestamps();
-        });
+        // Tabella 'preventivi' già gestita da una migration successiva.
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('preventivi');
+        // Nessuna operazione di rollback necessaria.
     }
 };

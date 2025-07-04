@@ -37,60 +37,58 @@ class Ticket extends Model
         'updated_at' => 'datetime',
     ];
 
-    /**
-     * Relazione con Stabile
-     */
+    // Relazione con Stabile
     public function stabile()
     {
-        return $this->belongsTo(Stabile::class, 'stabile_id', 'id_stabile');
+        return $this->belongsTo(Stabile::class, 'stabile_id', 'id');
     }
 
-    /**
-     * Relazione con UnitaImmobiliare
-     */
+    // Relazione con UnitaImmobiliare
     public function unitaImmobiliare()
     {
-        return $this->belongsTo(UnitaImmobiliare::class, 'unita_immobiliare_id', 'id_unita');
+        return $this->belongsTo(UnitaImmobiliare::class, 'unita_immobiliare_id', 'id');
     }
 
-    /**
-     * Relazione con Soggetto richiedente
-     */
+    // Relazione con Soggetto richiedente
     public function soggettoRichiedente()
     {
-        return $this->belongsTo(Soggetto::class, 'soggetto_richiedente_id', 'id_soggetto');
+        return $this->belongsTo(Soggetto::class, 'soggetto_richiedente_id', 'id');
     }
 
-    /**
-     * Relazione con CategoriaTicket
-     */
+    // Relazione con CategoriaTicket
     public function categoriaTicket()
     {
-        return $this->belongsTo(CategoriaTicket::class, 'categoria_ticket_id');
+        return $this->belongsTo(CategoriaTicket::class, 'categoria_ticket_id', 'id');
     }
 
-    /**
-     * Relazione con User che ha aperto il ticket
-     */
-    public function apertoUser()
+    // Relazione con User che ha aperto il ticket
+    public function apertoDaUser()
     {
-        return $this->belongsTo(User::class, 'aperto_da_user_id');
+        return $this->belongsTo(User::class, 'aperto_da_user_id', 'id');
     }
 
-    /**
-     * Relazione con User assegnato
-     */
-    public function assegnatoUser()
+    // Relazione con User assegnato
+    public function assegnatoAUser()
     {
-        return $this->belongsTo(User::class, 'assegnato_a_user_id');
+        return $this->belongsTo(User::class, 'assegnato_a_user_id', 'id');
     }
 
-    /**
-     * Relazione con Fornitore assegnato
-     */
-    public function assegnatoFornitore()
+    // Relazione con Fornitore assegnato
+    public function assegnatoAFornitore()
     {
-        return $this->belongsTo(Fornitore::class, 'assegnato_a_fornitore_id', 'id_fornitore');
+        return $this->belongsTo(Fornitore::class, 'assegnato_a_fornitore_id', 'id');
+    }
+
+    // Relazione con TicketUpdate
+    public function updates()
+    {
+        return $this->hasMany(TicketUpdate::class, 'ticket_id', 'id');
+    }
+
+    // Relazione con TicketMessage
+    public function messages()
+    {
+        return $this->hasMany(TicketMessage::class, 'ticket_id', 'id');
     }
 
     /**

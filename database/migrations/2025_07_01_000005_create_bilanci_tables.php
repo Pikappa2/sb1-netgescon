@@ -4,17 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        // Migration legacy svuotata: la tabella transazioni_contabili è ora gestita nella migration master/unificata.
+        // Migration legacy svuotata: la tabella bilanci è ora gestita nella migration master/unificata.
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         // Nessuna azione: la tabella viene gestita dalla migration master.

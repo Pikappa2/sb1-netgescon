@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('piani_conti_modello', function (Blueprint $table) {
-            $table->bigIncrements('id_conto_modello');
+            $table->bigIncrements('id'); // PK uniformata
             $table->string('codice', 20)->unique();
             $table->string('descrizione');
             $table->string('tipo_conto', 50)->comment('Es. PATRIMONIALE_ATTIVITA, ECONOMICO_COSTO, FINANZIARIO_ATTIVITA');

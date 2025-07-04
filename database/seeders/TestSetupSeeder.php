@@ -113,7 +113,7 @@ class TestSetupSeeder extends Seeder
 
         // 5. Crea Unità Immobiliari di Test
         $unita1 = UnitaImmobiliare::firstOrCreate(
-            ['id_stabile' => $stabile->id_stabile, 'interno' => '1', 'scala' => 'A', 'fabbricato' => 'Principale'],
+            ['stabile_id' => $stabile->id, 'interno' => '1', 'scala' => 'A', 'fabbricato' => 'Principale'],
 
 
             [
@@ -127,7 +127,7 @@ class TestSetupSeeder extends Seeder
             ]
         );
         $unita2 = UnitaImmobiliare::firstOrCreate(
-            ['id_stabile' => $stabile->id_stabile, 'interno' => '2', 'scala' => 'A', 'fabbricato' => 'Principale'],
+            ['stabile_id' => $stabile->id, 'interno' => '2', 'scala' => 'A', 'fabbricato' => 'Principale'],
             [
                 'piano' => '1',
                 'subalterno' => '2',
@@ -147,25 +147,53 @@ class TestSetupSeeder extends Seeder
         $this->command->info('Soggetti di Test creati.');
 
         // 7. Collega Soggetti alle Unità (Proprieta)
-        Proprieta::firstOrCreate(['soggetto_id' => $soggettoProprietario1->id_soggetto, 'unita_immobiliare_id' => $unita1->id_unita], ['tipo_diritto' => 'proprietario', 'percentuale_possesso' => 100.00, 'data_inizio' => '2020-01-01']);
-        Proprieta::firstOrCreate(['soggetto_id' => $soggettoProprietario1->id_soggetto, 'unita_immobiliare_id' => $unita2->id_unita], ['tipo_diritto' => 'nudo_proprietario', 'percentuale_possesso' => 100.00, 'data_inizio' => '2022-03-01']);
-        Proprieta::firstOrCreate(['soggetto_id' => $soggettoProprietario2->id_soggetto, 'unita_immobiliare_id' => $unita2->id_unita], ['tipo_diritto' => 'usufruttuario', 'percentuale_possesso' => 100.00, 'data_inizio' => '2022-03-01']);
-        Proprieta::firstOrCreate(['soggetto_id' => $soggettoInquilino->id_soggetto, 'unita_immobiliare_id' => $unita1->id_unita], ['tipo_diritto' => 'inquilino', 'percentuale_possesso' => 100.00, 'data_inizio' => '2023-06-15']);
+        Proprieta::firstOrCreate([
+            'soggetto_id' => $soggettoProprietario1->id ?? $soggettoProprietario1->id_soggetto,
+            'unita_immobiliare_id' => $unita1->id ?? $unita1->id_unita
+        ], [
+            'tipo_diritto' => 'proprietario',
+            'percentuale_possesso' => 100.00,
+            'data_inizio' => '2020-01-01'
+        ]);
+        Proprieta::firstOrCreate([
+            'soggetto_id' => $soggettoProprietario1->id ?? $soggettoProprietario1->id_soggetto,
+            'unita_immobiliare_id' => $unita2->id ?? $unita2->id_unita
+        ], [
+            'tipo_diritto' => 'nudo_proprietario',
+            'percentuale_possesso' => 100.00,
+            'data_inizio' => '2022-03-01'
+        ]);
+        Proprieta::firstOrCreate([
+            'soggetto_id' => $soggettoProprietario2->id ?? $soggettoProprietario2->id_soggetto,
+            'unita_immobiliare_id' => $unita2->id ?? $unita2->id_unita
+        ], [
+            'tipo_diritto' => 'usufruttuario',
+            'percentuale_possesso' => 100.00,
+            'data_inizio' => '2022-03-01'
+        ]);
+        Proprieta::firstOrCreate([
+            'soggetto_id' => $soggettoInquilino->id ?? $soggettoInquilino->id_soggetto,
+            'unita_immobiliare_id' => $unita1->id ?? $unita1->id_unita
+        ], [
+            'tipo_diritto' => 'inquilino',
+            'percentuale_possesso' => 100.00,
+            'data_inizio' => '2023-06-15'
+        ]);
         $this->command->info('Relazioni Soggetto-Unità create.');
 
         // 8. Crea una Tabella Millesimale di Test
         $tabellaA = TabellaMillesimale::firstOrCreate(
-            ['id_stabile' => $stabile->id_stabile, 'nome_tabella' => 'Tabella A - Proprietà'],
+            ['stabile_id' => $stabile->id, 'nome_tabella_millesimale' => 'Tabella A - Proprietà'],
             ['descrizione' => 'Ripartizione spese in base ai millesimi di proprietà generale.']
         );
         // Fix: recupera la chiave primaria corretta se non presente
-        if (!$tabellaA->id_tabella_millesimale) {
+        if (!$tabellaA->id) {
             // Prova a ricaricare dal DB se firstOrCreate restituisce un oggetto senza la chiave primaria
-            $tabellaA = TabellaMillesimale::where('id_stabile', $stabile->id_stabile)
-                ->where('nome_tabella', 'Tabella A - Proprietà')
+            $tabellaA = TabellaMillesimale::where('stabile_id', $stabile->id)
+                ->where('nome_tabella_millesimale', 'Tabella A - Proprietà')
                 ->first();
         }
-        if (!$tabellaA || !$tabellaA->id_tabella_millesimale) {
+        if (!$tabellaA || !$tabellaA->id) {
             $this->command->error('Errore: la tabella millesimale non è stata creata correttamente!');
             return;
         }
@@ -173,29 +201,29 @@ class TestSetupSeeder extends Seeder
 
         // 9. Crea Dettagli Millesimali per le unità
         DettaglioTabellaMillesimale::firstOrCreate(
-            ['id_tabella_millesimale' => $tabellaA->id_tabella_millesimale, 'id_unita' => $unita1->id_unita],
-            ['valore_millesimale' => 500.0000]
+            ['tabella_millesimale_id' => $tabellaA->id, 'unita_immobiliare_id' => $unita1->id ?? $unita1->id_unita],
+            ['millesimi' => 500.0000]
         );
         DettaglioTabellaMillesimale::firstOrCreate(
-            ['id_tabella_millesimale' => $tabellaA->id_tabella_millesimale, 'id_unita' => $unita2->id_unita],
-            ['valore_millesimale' => 500.0000]
+            ['tabella_millesimale_id' => $tabellaA->id, 'unita_immobiliare_id' => $unita2->id ?? $unita2->id_unita],
+            ['millesimi' => 500.0000]
         );
         $this->command->info('Dettagli Millesimali creati.');
 
         /*// 10. Crea una Gestione di Test
         $gestione2024 = Gestione::firstOrCreate(
-            ['id_stabile' => $stabile->id_stabile, 'anno' => 2024, 'tipo' => 'ORDINARIA'],
+            ['stabile_id' => $stabile->id, 'anno' => 2024, 'tipo' => 'ORDINARIA'],
             ['data_inizio' => '2024-01-01', 'data_fine' => '2024-12-31', 'stato' => 'aperta']
         );
         $this->command->info('Gestione di Test creata.');*/
 
         // 11. Crea un Piano dei Conti per lo Stabile (esempio base)
         $contoPulizie = PianoContiCondominio::firstOrCreate(
-            ['id_stabile' => $stabile->id_stabile, 'codice' => 'SP.PUL'],
+            ['stabile_id' => $stabile->id, 'codice' => 'SP.PUL'],
             ['descrizione' => 'Spese di Pulizia Scale', 'tipo_conto' => 'ECONOMICO_COSTO']
         );
         $contoAssicurazione = PianoContiCondominio::firstOrCreate(
-            ['id_stabile' => $stabile->id_stabile, 'codice' => 'SP.ASS'],
+            ['stabile_id' => $stabile->id, 'codice' => 'SP.ASS'],
             ['descrizione' => 'Assicurazione Fabbricato', 'tipo_conto' => 'ECONOMICO_COSTO']
         );
         $this->command->info('Piano dei Conti di Test creato.');

@@ -1,62 +1,47 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# NetGesCon - Gestione Condominiale
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Progetto open source per la gestione avanzata di condomini, amministratori e contabilità, sviluppato in Laravel.
 
-## About Laravel
+## Funzionalità principali
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Gestione anagrafiche (amministratori, fornitori, soggetti, stabili, unità immobiliari)
+- Gestione proprietà e tabelle millesimali
+- Gestione piano dei conti condominiale
+- Sistema di migration e seeder uniformato secondo le best practice Laravel/Eloquent
+- Struttura dati pronta per la gestione multi-condominio e multi-utente
+- Interfaccia amministratore ispirata a soluzioni moderne (es. Akaunting)
+- Integrazione futura di menu dinamico con [akaunting/laravel-menu](https://github.com/akaunting/laravel-menu)
+- UI separata per amministratori (desktop, gestione massiva dati) e per condomini (mobile friendly, funzioni essenziali)
+- Possibilità di estendere la piattaforma con moduli aggiuntivi (preventivi, bilanci, automazioni, ticketing, allegati, rateizzazione, ecc.)
+- Progetto pensato per essere multi-piattaforma (PC, Mac, Linux)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Idee e sviluppi futuri
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Implementazione di un sistema di menu a doppia colonna (sidebar + sottomenu) ispirato ad Akaunting
+- Dashboard personalizzate per amministratori e condomini
+- Gestione avanzata di prospetti di ripartizione spese
+- Integrazione con servizi esterni (es. invio email, notifiche, API)
+- Gestione documentale e allegati
+- Sistema di ticketing e comunicazioni interne
+- Moduli per automazioni e workflow personalizzati
+- Apertura a contributi della community e sviluppo collaborativo
 
-## Learning Laravel
+## Come contribuire
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. Forka il repository
+2. Crea una branch per la tua feature
+3. Fai una pull request
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Note di sicurezza
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Non committare dati sensibili o file `.env`
+- Tutti i dati di esempio sono fittizi
 
-## Laravel Sponsors
+## Licenza
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+MIT
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Progetto in sviluppo attivo. Per info e collaborazione: [tuo contatto]
 

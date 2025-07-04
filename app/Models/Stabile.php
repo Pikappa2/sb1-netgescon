@@ -10,7 +10,6 @@ class Stabile extends Model
     use HasFactory;
 
     protected $table = 'stabili';
-    protected $primaryKey = 'id_stabile';
 
     protected $fillable = [
         'amministratore_id',
@@ -36,7 +35,7 @@ class Stabile extends Model
      */
     public function amministratore()
     {
-        return $this->belongsTo(Amministratore::class, 'amministratore_id', 'id_amministratore');
+        return $this->belongsTo(Amministratore::class, 'amministratore_id', 'id');
     }
 
     /**
@@ -44,7 +43,7 @@ class Stabile extends Model
      */
     public function unitaImmobiliari()
     {
-        return $this->hasMany(UnitaImmobiliare::class, 'stabile_id', 'id_stabile');
+        return $this->hasMany(UnitaImmobiliare::class, 'stabile_id', 'id');
     }
 
     /**
@@ -52,7 +51,7 @@ class Stabile extends Model
      */
     public function tickets()
     {
-        return $this->hasMany(Ticket::class, 'stabile_id', 'id_stabile');
+        return $this->hasMany(Ticket::class, 'stabile_id', 'id');
     }
 
     /**

@@ -10,7 +10,6 @@ class UnitaImmobiliare extends Model
     use HasFactory;
 
     protected $table = 'unita_immobiliari';
-    protected $primaryKey = 'id_unita';
 
     protected $fillable = [
         'stabile_id',
@@ -39,7 +38,7 @@ class UnitaImmobiliare extends Model
      */
     public function stabile()
     {
-        return $this->belongsTo(Stabile::class, 'stabile_id', 'id_stabile');
+        return $this->belongsTo(Stabile::class, 'stabile_id', 'id');
     }
 
     /**
@@ -47,7 +46,7 @@ class UnitaImmobiliare extends Model
      */
     public function tickets()
     {
-        return $this->hasMany(Ticket::class, 'unita_immobiliare_id', 'id_unita');
+        return $this->hasMany(Ticket::class, 'unita_immobiliare_id', 'id');
     }
 
     /**
@@ -55,7 +54,7 @@ class UnitaImmobiliare extends Model
      */
     public function proprieta()
     {
-        return $this->hasMany(\App\Models\Proprieta::class, 'unita_immobiliare_id', 'id_unita');
+        return $this->hasMany(Proprieta::class, 'unita_immobiliare_id', 'id');
     }
 
     /**

@@ -10,7 +10,6 @@ class Fornitore extends Model
     use HasFactory;
 
     protected $table = 'fornitori';
-    protected $primaryKey = 'id_fornitore';
 
     protected $fillable = [
         'amministratore_id',
@@ -37,7 +36,7 @@ class Fornitore extends Model
      */
     public function amministratore()
     {
-        return $this->belongsTo(Amministratore::class, 'amministratore_id', 'id_amministratore');
+        return $this->belongsTo(Amministratore::class, 'amministratore_id', 'id');
     }
 
     /**
@@ -45,7 +44,7 @@ class Fornitore extends Model
      */
     public function ticketsAssegnati()
     {
-        return $this->hasMany(Ticket::class, 'assegnato_a_fornitore_id', 'id_fornitore');
+        return $this->hasMany(Ticket::class, 'assegnato_a_fornitore_id', 'id');
     }
 
     /**
@@ -58,12 +57,10 @@ class Fornitore extends Model
         if ($this->indirizzo) $parts[] = $this->indirizzo;
         if ($this->cap && $this->citta) {
             $parts[] = $this->cap . ' ' . $this->citta;
-        } elseif ($this->citta) {
-            $parts[] = $this->citta;
         }
         if ($this->provincia) $parts[] = '(' . $this->provincia . ')';
         
-        return implode(', ', $parts) ?: '-';
+        return implode(', ', $parts);
     }
 
     /**

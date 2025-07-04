@@ -13,7 +13,7 @@ class TabellaMillesimale extends Model
 
     protected $fillable = [
         'stabile_id',
-        'nome',
+        'nome_tabella_millesimale',
         'descrizione',
         'tipo',
         'attiva',
@@ -58,7 +58,7 @@ class TabellaMillesimale extends Model
      */
     public function scopeOrdinato($query)
     {
-        return $query->orderBy('ordinamento')->orderBy('nome');
+        return $query->orderBy('ordinamento')->orderBy('nome_tabella_millesimale');
     }
 
     /**

@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+    if (!Schema::hasTable('voci_spesa')) {
         Schema::create('voci_spesa', function (Blueprint $table) {
             $table->bigIncrements('id_voce');
             $table->string('codice')->nullable()->unique();
@@ -19,8 +20,9 @@ return new class extends Migration
             $table->text('note')->nullable();
             $table->timestamps();
         });
+        }   
     }
-
+        
     /**
      * Reverse the migrations.
      */
