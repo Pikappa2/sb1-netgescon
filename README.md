@@ -41,6 +41,15 @@ Progetto open source per la gestione avanzata di condomini, amministratori e con
 
 MIT
 
+## Sostieni il progetto
+
+Se vuoi supportare lo sviluppo di NetGesCon:
+
+- [Dona con PayPal](https://www.paypal.com/donate/?hosted_button_id=NPBKFSJCEVSLN)
+- [Diventa un sostenitore su Patreon](https://patreon.com/netgescon)
+
+Grazie per il tuo contributo!
+
 ---
 
 Progetto in sviluppo attivo. Per info e collaborazione: [tuo contatto]
