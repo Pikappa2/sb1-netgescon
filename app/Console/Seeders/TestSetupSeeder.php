@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace App\Console\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
@@ -220,12 +220,19 @@ class TestSetupSeeder extends Seeder
         );
         $this->command->info('Dettagli Millesimali creati.');
 
-        /*// 10. Crea una Gestione di Test
+        // 10. Crea una Gestione di Test
         $gestione2024 = Gestione::firstOrCreate(
-            ['stabile_id' => $stabile->id, 'anno' => 2024, 'tipo' => 'ORDINARIA'],
+            ['stabile_id' => $stabile->id, 'anno_gestione' => 2024, 'tipo_gestione' => 'Ord.'],
             ['data_inizio' => '2024-01-01', 'data_fine' => '2024-12-31', 'stato' => 'aperta']
         );
-        $this->command->info('Gestione di Test creata.');*/
+        $this->command->info('Gestione di Test creata.');
+
+        // Aggiungiamo anche la gestione 2025
+        $gestione2025 = Gestione::firstOrCreate(
+            ['stabile_id' => $stabile->id, 'anno_gestione' => 2025, 'tipo_gestione' => 'Ord.'],
+            ['data_inizio' => '2025-01-01', 'stato' => 'aperta']
+        );
+        $this->command->info('Gestione 2025 creata.');
 
         // 11. Crea un Piano dei Conti per lo Stabile (esempio base)
         $contoPulizie = PianoContiCondominio::firstOrCreate(

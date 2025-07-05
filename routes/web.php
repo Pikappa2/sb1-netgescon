@@ -21,6 +21,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\ImpostazioniController;
 use App\Http\Controllers\Admin\ApiTokenController;
 use App\Http\Controllers\Admin\RubricaController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 // --- Public Routes ---
 Route::get('/', function () { return view('welcome'); });
@@ -29,7 +31,18 @@ Route::get('/', function () { return view('welcome'); });
 Route::middleware(['auth', 'verified'])->group(function () {
     
     // Generic Dashboard (redirects to the correct panel based on role)
-    Route::get('/dashboard', function () { return view('dashboard'); })->name('dashboard');
+    Route::get('/dashboard', function () {
+        if (Auth::check()) {
+            if (Auth::user()->hasRole('super-admin')) {
+                return redirect()->route('superadmin.dashboard');
+            } elseif (Auth::user()->hasRole(['admin', 'amministratore'])) {
+                return redirect()->route('admin.dashboard');
+            } elseif (Auth::user()->hasRole('condomino')) {
+                return redirect()->route('condomino.dashboard');
+            }
+        }
+        return view('dashboard');
+    })->name('dashboard');
 
     // Profile Routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -47,6 +60,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('users/{user}/update-role', [SuperAdminUserController::class, 'updateRole'])->name('users.updateRole');
         Route::get('users/{user}/impersonate', [SuperAdminUserController::class, 'impersonate'])->name('users.impersonate');
         
+
+        // Impostazioni Sistema
+        Route::get('impostazioni', [\App\Http\Controllers\SuperAdmin\ImpostazioniController::class, 'index'])->name('impostazioni.index');
+        Route::post('impostazioni', [\App\Http\Controllers\SuperAdmin\ImpostazioniController::class, 'store'])->name('impostazioni.store');
         // Gestione Amministratori
         Route::resource('amministratori', SuperAdminAmministratoreController::class)
             ->except(['show'])
@@ -55,8 +72,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Gestione Categorie Ticket
         Route::resource('categorie-ticket', CategoriaTicketController::class)->except(['show']);
         
+        // Gestione Stabili (ora anche per super-admin)
+        Route::resource('stabili', StabileController::class);
+        Route::resource('stabili.unitaImmobiliari', UnitaImmobiliareController::class)->shallow();
+        Route::resource('unitaImmobiliari', UnitaImmobiliareController::class)->only(['edit', 'update', 'destroy']);
+        Route::resource('soggetti', SoggettoController::class);
+        Route::resource('fornitori', FornitoreController::class);
+        Route::resource('tickets', TicketController::class);
+        Route::resource('documenti', DocumentoController::class)->except(['edit', 'update']);
+        
         // Diagnostica
         Route::get('/diagnostica', function() { return view('superadmin.diagnostica'); })->name('diagnostica');
+        Route::get('/diagnostica-menu', function() {
+            return view('superadmin.diagnostica_menu');
+        })->name('diagnostica_menu');
     });
 
     // --- ADMIN / AMMINISTRATORE PANEL ---
@@ -186,3 +215,10 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/contabilita/registrazione-test', \App\Livewire\Contabilita\RegistrazioneTest::class)
     ->middleware(['auth'])
     ->name('contabilita.registrazione-test');
+
+// Rotta per aggiornare la sessione con lo stabile selezionato
+Route::post('/session/stabile', function (\Illuminate\Http\Request $request) {
+    $request->validate(['stabile' => 'required|string']);
+    session(['stabile_corrente' => $request->input('stabile')]);
+    return response()->json(['ok' => true]);
+})->middleware('auth')->name('session.stabile');

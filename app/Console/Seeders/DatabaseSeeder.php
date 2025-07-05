@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace App\Console\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // SuperAdminSeeder::class, // Questo seeder è ora inglobato in TestSetupSeeder
             \App\Console\Seeders\TestSetupSeeder::class, // Chiama il seeder principale di setup
-            ImpostazioniSeeder::class,
+            \App\Console\Seeders\ImpostazioniSeeder::class,
         ]);
     }
 }

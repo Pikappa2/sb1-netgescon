@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Al momento non usiamo più la logica di Fortify qui,
-        // ma lasciamo il file pulito per future necessità.
+        // View Composer per la sidebar
+        View::composer(['components.menu.sidebar', 'superadmin.dashboard', 'admin.dashboard'], \App\Http\View\Composers\SidebarComposer::class);
     }
 }
